@@ -15,6 +15,9 @@ const storeSchema = new mongoose.Schema({
   link:{
     type:String,
     unique:true
+  },
+  mobile:{
+    type:String
   }
 });
 

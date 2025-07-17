@@ -9,17 +9,17 @@ const productSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  MRP:{
+  mrp:{
     type:Number,
     required:true
   },
-  sale_price:{
+  saleprice:{
     type:Number,
     required:true
   },
-  category:{
+  categoryId:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:'Category'
+    ref:'Categoraway'
   },
   storeId:{
     type:mongoose.Schema.Types.ObjectId,
