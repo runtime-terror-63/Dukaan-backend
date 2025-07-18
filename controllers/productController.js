@@ -1,15 +1,27 @@
 const Product = require("../models/Product");
+const Category = require("../models/Category");
 
+exports.createProduct = async (req, res) => {
+  try {
+    const { name, description, mrp, saleprice, category , storeId} = req.body;
 
-exports.createProduct = async (req, res)=>{
-  try{
-    const {name, description, mrp, saleprice,categoryId}  = req.body;
-    const storeId = req.body.storeId;
-    const newProduct = await new Product({name, description, mrp, saleprice, categoryId, storeId});
+    const categoryExists = await Category.findOne({ name:category, storeId });
+    if (!categoryExists)
+      return res.status(401).json({ message: "Category not found!" });
+
+    const newProduct = new Product({
+      name,
+      description,
+      mrp,
+      saleprice,
+      category,
+      storeId,
+    });
+
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
-  }catch(err){
-    res.status(500).json('Internal server error ', err);
+  } catch (err) {
+    res.status(500).json("Internal server error ", err);
   }
 };
 
